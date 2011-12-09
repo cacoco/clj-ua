@@ -18,7 +18,7 @@
     (when (< i (count seq))
       (let [part (nth seq i)]
         (dosync
-          (if (not (.equals "" (nth part 0)))
+          (if (and (not (.equals "" (nth part 0))) (< 0 (.indexOf (nth part 0) "/")))
             (alter parsed-browser assoc :name (nth part 1) :version (nth part 3)))))
       (recur (inc i)))))
 
@@ -34,7 +34,7 @@
         (alter parsed-platform assoc :name part :version (.replaceAll (nth version 0) "_" "."))))))
 
 (defn handle-comment [parts callback]
-  (if (< 1 (count parts))
+  (if (< 2 (count parts))
     (let [candidate (nth parts 2)]
       (callback candidate))
     (callback (nth parts 0))))
