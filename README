@@ -4,7 +4,7 @@ Clojure user-agent parser. Because I like pain.
 
 ## Usage
 
-to run the (large) amount of test:
+to run the (large) amount of tests:
 lein test
 
 
