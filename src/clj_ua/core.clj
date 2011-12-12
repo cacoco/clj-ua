@@ -23,15 +23,16 @@
       ; then
       (let [os-x (re-find #"OS X" (.toUpperCase comment))]
         (if (not (nil? os-x))
-          (os-x)))
+          os-x))
       ; else
       (.replaceAll (nth version 0) "_" "."))))
 
 (defn handle-comment [parts]
-  (let [part (nth parts 0)]
-    (if (< 1 (.length part))
-      (apply array-map [:name part :version (parse-version-from-comment part)])
-      (handle-comment (Arrays/copyOfRange parts 1 (count parts))))))
+  (if (and (not (nil? parts)) (< 0 (alength parts)))
+    (let [part (nth parts 0)]
+      (if (< 1 (.length part))
+        (apply array-map [:name part :version (parse-version-from-comment part)])
+        (handle-comment (Arrays/copyOfRange parts 1 (count parts)))))))
 
 (defn parse-browser [seq]
   (let [part (last seq)]
@@ -42,9 +43,14 @@
 (defn parse-platform [seq]
   (let [part (first seq)]
     (if (< 6 (count part))
-      (let [comment (nth part 6)
-            parts (.split comment "; ")]
-        (handle-comment (Arrays/copyOfRange parts 1 (count parts))))
+      ; then
+      (let [comment (nth part 6)]
+        (if (not (nil? comment))
+          (let [parts (.split comment "; ")]
+            (if (< 1 (alength parts))
+              (handle-comment (Arrays/copyOfRange parts 1 (count parts)))
+              (handle-comment parts)))))
+      ; else
       (parse-platform (rest seq)))))
 
 (defn parse [seq]

@@ -35,7 +35,6 @@
              "Yandex/1.01.001 (compatible; Win16; I)"
              "ia_archiver (+http://www.alexa.com/site/help/webmasters; crawler@alexa.com)"
              "Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)"
-             "Mozilla/5.0 (Twiceler-0.9 http://www.cuil.com/twiceler/robot.ht"
              "Dillo/0.8.6-i18n-misc"
              "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6.3; FunWebProducts; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; InfoPath.2)"
              "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/4.0; GTB6.4; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.21022; .NET CLR 3.5.30729; .NET CLR 3.0.30729; msn OptimizedIE8;ENUS)"
@@ -3463,5 +3462,5 @@
   (loop [i 0]
     (when (< i (count agents))
       (let [agent (nth agents i)]
-        (parse agent))
+        (prn (start agent)))
       (recur (inc i)))))
