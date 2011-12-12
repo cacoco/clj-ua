@@ -3462,5 +3462,5 @@
   (loop [i 0]
     (when (< i (count agents))
       (let [agent (nth agents i)]
-        (prn (start agent)))
+        (prn (parse agent)))
       (recur (inc i)))))
