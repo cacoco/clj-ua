@@ -2,7 +2,7 @@
   (:use [clj-ua.core])
   (:use [clojure.test]))
 
-(def agents ["Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.13) Gecko/20101206 Ubuntu/10.10 (maverick) Firefox/3.6.13"
+(def input '("Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.13) Gecko/20101206 Ubuntu/10.10 (maverick) Firefox/3.6.13"
              "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.14) Gecko/20110218 Firefox/3.6.14"
              "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.14) Gecko/20110218 Firefox/3.6.14"
              "Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.6.30 Version/10.62"
@@ -3456,11 +3456,12 @@
              "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; SpamBlockerUtility 4.8.0)"
              "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; sbcydsl 3.12; YComp 5.0.0.0; YPC 3.2.0; .NET CLR 1.1.4322)"
              "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; iebar; acc=username; (username .NET CLR 1.1.4322; .NET CLR 2.0.50727)"
-             "Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; nb-NO; rv:1.8.0.6) Gecko/20060728 Firefox/1.5.0.6"])
+             "Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; nb-NO; rv:1.8.0.6) Gecko/20060728 Firefox/1.5.0.6"))
 
 (deftest test-parse
-  (loop [i 0]
-    (when (< i (count agents))
-      (let [agent (nth agents i)]
-        (prn (parse agent)))
-      (recur (inc i)))))
+  (prn
+    (reduce
+      (fn [res agent]
+        (conj res (parse agent)))
+      '()
+      input)))
